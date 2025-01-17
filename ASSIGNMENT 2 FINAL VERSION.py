@@ -1,4 +1,9 @@
-# Import some math functions helpful for computation (pi, sqrt, e)
+# The objective of this code is to ask the user to input 
+# characteristics about a rocket in order to compute and 
+# obtain information on the rocket (cost, weight, height...)
+
+
+# Import some math functions helpful for computation (pi, sqrt, e, sin...)
 import math
 
 # Here are all the unchanging values
@@ -220,7 +225,7 @@ velocity_i, time, tax):
     velocity_e, velocity_i, time)
     
     # Depending on if we consider taxes, the computation is different
-    if tax == True:
+    if tax:
         total_cost = round((material_cost + fuel_cost) * TAX_QUEBEC, 2)
     else:
         total_cost = round(material_cost + fuel_cost, 2)
@@ -276,6 +281,7 @@ def load_rocket(initial_weight, radius, height_cyl):
     >>> load_rocket(399.0, 100.0, 1000.0)
     No more items can be added
     399.0
+
     >>> load_rocket(10000.5, 123.3, 1037.4)
     Please enter the weight of the next item (type "Done" when you \
     are done filling the rocket): 614.2
@@ -292,6 +298,7 @@ def load_rocket(initial_weight, radius, height_cyl):
     are done filling the rocket): Done
     No more items can be added
     10100.6
+
     >>> load_rocket(13589.57, 1.0, 1.0)
     Please enter the weight of the next item (type "Done" when you \
     are done filling the rocket): 24.8
@@ -343,6 +350,7 @@ def load_rocket(initial_weight, radius, height_cyl):
             (MIN_WEIGHT_BOX > new_item_weight) or \
             (new_item_weight > MAX_WEIGHT_BOX):
                 print("Item could not be added... please try again...")
+                # The items could not be added so we substract mass and volume
                 current_weight_items -= new_item_weight
                 current_volume_items -= new_item_volume
                 new_item_weight = input("Please enter the weight of the next \
@@ -369,7 +377,7 @@ next item (type \"Done\" when you are done filling the rocket): ")
 of the next item (type \"Done\" when you are done filling the rocket): ")
         
 
-            current_weight += current_weight_items
+        current_weight += current_weight_items
         return round(current_weight, 2)
 
 
@@ -415,7 +423,7 @@ def projectile_sim(simulation_time, interval, velocity_i, angle):
     print(height_rocket)
     
     # Print the height for each time interval
-    for time in range (0, simulation_time+1, interval):
+    for time in range (0, simulation_time + 1, interval):
         height_rocket = - (1/2 * GRAVITATIONAL_ACCELERATION * time ** 2) + \
         velocity_i * math.sin(angle) * time
         
@@ -436,6 +444,7 @@ def rocket_main():
         None
     Returns:
         None
+
     Example:
     >>> rocket_main()
     Welcome to the Rocket Simulation!
@@ -474,17 +483,17 @@ def rocket_main():
     radius_feet = float(input("Enter the rocket radius in feet: "))
     radius = feet_to_meter(radius_feet)
     height_cone_feet = float(input("Enter the rocket cone height in \
-feet: "))
+    feet: "))
     height_cone = feet_to_meter(height_cone_feet)
     height_cyl_feet = float(input("Enter the rocket cylinder height in \
-feet: "))
+    feet: "))
     height_cyl = feet_to_meter(height_cyl_feet)
     velocity_e = float(input("Enter the exhaust velocity for the \
-upcoming trip : "))
+    upcoming trip : "))
     velocity_i = float(input("Enter the initial velocity for the \
-upcoming trip : "))
+    upcoming trip : "))
     angle = float(input("Enter the angle of launch for the \
-upcoming trip : "))
+    upcoming trip : "))
     time = float(input("Enter the length of the upcoming trip : "))
     tax = int(input("Would you like to factor in tax? 1 for yes,  0 for no: "))
     if tax == 1:
@@ -494,7 +503,7 @@ upcoming trip : "))
     print("This trip will cost $"+str(calculate_cost(radius, height_cone,
     height_cyl, velocity_e, velocity_i, time, tax)))
 
-    # Compute the weight by using rocket_mas and load_rocket
+    # Compute the weight by using rocket_mass and load_rocket
     print("Now loading the rocket:")
     initial_weight = rocket_mass(radius, height_cone, height_cyl)
     print("The rocket and its equipment will weigh",
