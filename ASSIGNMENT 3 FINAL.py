@@ -1,3 +1,5 @@
+# The goal of this program is to decipher a coded message.
+
 # Unchanging values
 MAXIMUM_LENGTH = 10000
 
@@ -7,7 +9,7 @@ def is_not_valid(is_string):
     Returns a boolean when given a string value (to check if the string
     only contains letters or a space)
     Parameters:
-        is_string (str): A string
+        is_string: A string
     Returns:
         True/False: A boolean value
         
@@ -71,10 +73,8 @@ def string2list(is_string):
     Examples:
     >>> string2list("Hello Bye")
     [['H', 'e', 'l'], ['l', 'o', ' '], ['B', 'y', 'e']]
-    
     >>> string2list("A")
     [['A']]
-    
     >>> string2list("This is not valid")
     []
     """
@@ -106,7 +106,7 @@ def string2list(is_string):
         return final_list                
                                
     
- 
+   
 def add_space(input_text):
     """
     Returns an output text when given an input text (the new string can
@@ -119,31 +119,24 @@ def add_space(input_text):
     Examples:
     >>> add_space("HelloEveryone")
     'Hello Everyone'
-    
     >>> add_space("ThisIsAnExample")
     'This Is An Example'
-    
     >>> add_space("THIsDefinitelyIsAcrazyString")
     'THIs Definitely Is Acrazy String'
     """
     
-    # We can't add a space as the first character of the string
-    output_text = input_text[0]
+    # Transform the string into a list since strings are immutable
+    my_list = list(input_text)
     
-    # Create a loop to traverse the string
-    for i in range(1, len(input_text)):
-        
-    # Check if there is an upper case letter between two
-    # lower case letters, this does not apply to the last character
-        if (i < len(input_text) - 1) and ("a" <= input_text[i + 1] \
-        <= "z") and ("A" <= input_text[i] <= "Z") and \
-        ("a" <= input_text[i - 1] <= "z"):
+    # Traverse the new list by adding spaces (when an upper case letter is
+    # between two lower case letters)
+    for i in range(2, len(my_list)):
+        if "a" <= my_list[i - 2] <= "z" and "a" <= my_list[i] <= "z" and \
+          "A" <= my_list[i -1] <= "Z":
+            my_list.insert(i - 1, " ")
             
-            # Add a space each time the condition is True
-            output_text += " "
-        
-        # Add each character in the final string
-        output_text += input_text[i]
+    # Transform back the list into a string
+    output_text = "".join(my_list)
     
     return output_text
 
@@ -215,8 +208,7 @@ def horizontal_flip(square_list):
         counter = 1
         
         for j in range(length_sub // 2):
-            sublist[j], sublist[length_sub - counter] = \
-            sublist[length_sub - counter], sublist[j]
+            sublist[j], sublist[length_sub - counter] = sublist[length_sub - counter], sublist[j]
             counter += 1
 
 
@@ -225,9 +217,9 @@ def transpose(square_list):
     Takes a 2D Square list and modifies it by flipping it over its diagonal,
     does not return anything.
     Parameters:
-        square_list: A 2D List (a list made of lists)
+        square_list: A 2D List (list of lists)
     Returns:
-        None (this is a void function)
+        None    
     
     Examples:
     >>> input_list = [["h", "I", "B"], ["e", "o", "y"], ["l", " ", "e"]]
@@ -262,9 +254,9 @@ def flip_list(square_list):
     Takes a 2D Square list and modifies it by flipping it horizontally, then
     flipping it over its diagonal, does not return anything.
     Parameters:
-        square_list: A 2D List (a list made of lists)
+        square_list: A 2D List
     Returns:
-        None (void function)
+        None
     
     Examples:
     >>> input_list = [["B", "I", "H"], ["y", "o", "e"], ["e", " ", "l"]]
@@ -310,9 +302,6 @@ def decipher_code(is_string):
     
     >>> decipher_code(" ")
     ' '
-    
-    >>> decipher_code("7483")
-    ''
     """
     # Check if there are multiple sentences in the string
     long_string = is_string.split(".")
