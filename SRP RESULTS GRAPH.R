@@ -2,6 +2,7 @@
 
 # The goal of this code is two create two plots to visualize the data 
 # collected about the growth of phytoplankton under different light colours.
+# The Datasets used are two files named SRP_DATA_FINAL and SRP_DATA_AVERAGE_Feuil1_.
 
 # Import statements:
 library(tidyverse)
